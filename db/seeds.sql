@@ -8,16 +8,16 @@ VALUES
 
 INSERT INTO role (title, salary, department_id)
 VALUES
-    ('Store Manager', 80000.00, 1),
-    ('Department Head', 50000.00, 1),
-    ('TV Salesperson', 25000.00, 2),
-    ('Phone Salesperson', 25000.00, 2),
-    ('Tools Salesperson', 25000.00, 3),
-    ('Tools Servicer', 30000.00, 3),
-    ('Kitchen Salesperson', 25000.00, 4),
-    ('Appliance Repairman', 40000.00, 4),
-    ('Pharmacist', 75000,00, 5),
-    ('Pharmacy Cashier', 38000.00, 5);
+    ('Store Manager', 80000, 1),
+    ('Department Head', 50000, 1),
+    ('TV Salesperson', 25000, 2),
+    ('Phone Salesperson', 25000, 2),
+    ('Tools Salesperson', 25000, 3),
+    ('Tools Servicer', 30000, 3),
+    ('Kitchen Salesperson', 25000, 4),
+    ('Appliance Repairman', 40000, 4),
+    ('Pharmacist', 75000, 5),
+    ('Pharmacy Cashier', 38000, 5);
 
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
 VALUES

@@ -1,4 +1,5 @@
 const express = require('express');
+const cTable = require('console.table');
 const db = require('./db/connect');
 
 const PORT = process.env.PORT || 3001;
