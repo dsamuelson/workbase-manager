@@ -1,4 +1,3 @@
-const cTable = require('console.table');
 const express = require('express');
 const db = require('../db/connect');
 const router = express.Router();
@@ -21,7 +20,8 @@ router.get('/department/:id', (req, res) => {
 });
 
 router.delete('/department/:id', (req,res) => {
-    const sql = `DELETE FROM departments WHERE id = ?`;
+    const sql = `DELETE FROM departments 
+    WHERE id = ?`;
     const params = [req.params.id];
 
     db.query(sql, params, (err, result) => {
@@ -42,8 +42,9 @@ router.delete('/department/:id', (req,res) => {
 });
 
 router.put('/department/:id', (req, res) => {
-    const sql = `UPDATE departments SET name = ?
-                WHERE id = ?`;
+    const sql = `UPDATE departments 
+    SET name = ?
+    WHERE id = ?`;
     const params = [req.body.name, req.params.id];
     db.query(sql, params, (err, result) => {
         if (err) {
