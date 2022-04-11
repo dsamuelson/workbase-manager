@@ -180,7 +180,7 @@ const roleQuestions = [
                     return reject(err);
                 }
                     for (let i = 0 ; i < res.length ; i++ ) {
-                        choicesArr.push({ value: {id: res[i].id, title: res[i].title}, name:res[i].title});
+                        choicesArr.push({ value: {id: res[i].id, title: res[i].title, salary: res[i].salary, department_id: res[i].department_id}, name:res[i].title});
                     }
                     return resolve(choicesArr);
                 })
@@ -197,7 +197,7 @@ const roleQuestions = [
     },
     {
         type: 'list',
-        name: 'updateChoice',
+        name: 'updateRoleChoice',
         message: 'What did you want to update?',
         choices: ['Role Title', 'Role Salary', 'Role Department'],
         when: ({updateRole}) => {
@@ -213,14 +213,14 @@ const roleQuestions = [
         name: 'updateRoleTitle',
         message: 'What should the Role Title be?',
         default:  ({ updateRole }) => {
-            if (updateRole) {
-                return updateRole;
+            if (updateRole.title) {
+                return updateRole.title;
             } else {
                 return ' ';
             }
         },
-        when: ({ updateChoice }) => {
-            if (updateChoice === 'Role Title') {
+        when: ({ updateRoleChoice }) => {
+            if (updateRoleChoice === 'Role Title') {
                 return true;
             } else {
                 return false;
@@ -232,20 +232,14 @@ const roleQuestions = [
         name: 'updateRoleSalary',
         message: "What should this role's Salary be?",
         default: ({updateRole}) => {
-            return new Promise ((resolve, reject) => {
-            let sql = `SELECT * FROM roles WHERE id = ?`;
-            let params = [updateRole.id]
-            db.query(sql, params, (err, res) => {
-                if (err) {
-                    return reject(err);
-                }
-                    return resolve(res[0].salary);
-                })
-                
-            })
+           if (updateRole.salary) {
+               return updateRole.salary;
+           } else {
+               return ' ';
+           }
         },
-        when: ({ updateChoice }) => {
-            if (updateChoice === 'Role Salary') {
+        when: ({ updateRoleChoice }) => {
+            if (updateRoleChoice === 'Role Salary') {
                 return true;
             } else {
                 return false;
@@ -272,8 +266,8 @@ const roleQuestions = [
                 
             })
         },
-        when: ({ updateChoice }) => {
-            if (updateChoice === 'Role Department') {
+        when: ({ updateRoleChoice }) => {
+            if (updateRoleChoice === 'Role Department') {
                 return true;
             } else {
                 return false;
