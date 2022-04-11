@@ -310,8 +310,8 @@ const emplQuestions = [
         type: 'list',
         name: 'emplList',
         message: 'What would you like to do?',
-        choices: ['View all Employees', 'Add an Employee', 'Update an Employee', 'Delete an Employee', 'Go Back'],
-        default: 'View all Roles'
+        choices: ['View all Employees', 'View Employees by Manager', 'View Employees by Department', 'Add an Employee', 'Update an Employee', 'Delete an Employee',  'Go Back'],
+        default: 'View all Employees'
     },
     {
         type: 'input',
@@ -406,7 +406,7 @@ const emplQuestions = [
                     return reject(err);
                 }
                     for (let i = 0 ; i < res.length ; i++ ) {
-                        choicesArr.push({ value: {id: res[i].id, first_name: res[i].first_name, last_name: res[i].last_name, full_name: res[i].first_name + ' ' + res[i].last_name}, name:res[i].first_name + ' ' + res[i].last_name});
+                        choicesArr.push({ value: {id: res[i].id, first_name: res[i].first_name, last_name: res[i].last_name, role_id: res[i].role_id, manager_id: res[i].manager_id}, name:res[i].first_name + ' ' + res[i].last_name});
                     }
                     return resolve(choicesArr);
                 })
@@ -513,7 +513,7 @@ const emplQuestions = [
                     return reject(err);
                 }
                     for (let i = 0 ; i < res.length ; i++ ) {
-                        choicesArr.push({ value: {id: res[i].id, first_name: res[i].first_name, last_name: res[i].last_name, full_name: res[i].first_name + ' ' + res[i].last_name}, name:res[i].first_name + ' ' + res[i].last_name});
+                        choicesArr.push({ value: {id: res[i].id, first_name: res[i].first_name, last_name: res[i].last_name, role_id: res[i].role_id, manager_id: res[i].manager_id}, name:res[i].first_name + ' ' + res[i].last_name});
                     }
                     return resolve(choicesArr);
                 })
@@ -541,7 +541,7 @@ const emplQuestions = [
                     return reject(err);
                 }
                     for (let i = 0 ; i < res.length ; i++ ) {
-                        choicesArr.push({ value: {id: res[i].id, first_name: res[i].first_name, last_name: res[i].last_name, full_name: res[i].first_name + ' ' + res[i].last_name}, name:res[i].first_name + ' ' + res[i].last_name});
+                        choicesArr.push({ value: {id: res[i].id, first_name: res[i].first_name, last_name: res[i].last_name}, name:res[i].first_name + ' ' + res[i].last_name});
                     }
                     choicesArr.push('Go Back');
                     return resolve(choicesArr);
@@ -564,4 +564,4 @@ module.exports = {
     deptQuestions,
     roleQuestions,
     emplQuestions
-}
+};

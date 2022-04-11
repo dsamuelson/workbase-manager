@@ -81,7 +81,7 @@ router.post('/department', ({ body }, res) => {
 });
 
 router.get('/departments', (req, res) => {
-    const sql = `SELECT * FROM departments`;
+    const sql = `SELECT name AS Department, id AS Department_id FROM departments`;
 
     db.query(sql, (err, rows) => {
         if (err) {

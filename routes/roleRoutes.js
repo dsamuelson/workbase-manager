@@ -81,7 +81,7 @@ router.post('/role', ({ body }, res) => {
 });
 
 router.get('/roles', (req, res) => {
-    const sql = `SELECT roles.id, roles.title, roles.salary, departments.name AS department
+    const sql = `SELECT roles.title, roles.id AS Role_id, departments.name AS Department, roles.salary AS Role_Salary
     FROM roles
     LEFT JOIN departments
     ON roles.department_id = departments.id`;
