@@ -109,7 +109,7 @@ class Construction {
                     method: 'GET'
                 })
                 .then((res) => res.json())
-                .then((data) => {console.table(data.data)})
+                .then((data) => {console.log('\n\n'); console.table(data.data)})
                 .then(this.rolesMenu());
             }
             if (answers.roleList === "Add a Role") {
@@ -150,7 +150,7 @@ class Construction {
                 let updateRoleObj = {
                     title: answers.updateRoleTitle || answers.updateRole.title,
                     salary: answers.updateRoleSalary || answers.updateRole.salary,
-                    department_id: answers.updateRoleDept || answers.updateRole.department_id
+                    department_id: answers.updateRoleDept.id || answers.updateRole.department_id
                 };
                 console.log('\n\nRole updated to the following:');
                 console.table(updateRoleObj);
