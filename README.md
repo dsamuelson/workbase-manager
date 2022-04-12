@@ -65,6 +65,7 @@ David Samuelson
 ## Usage
 
 For ease of use I incorporated the initialize into the server so all you need to do is run npm start and it should start the program
+- Video: https://drive.google.com/file/d/1HJ1lDMG8AwHo1akdu28Hx7lWyU77RjlI/view
 
 ## Contact
 
