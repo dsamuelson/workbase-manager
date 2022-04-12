@@ -1,9 +1,7 @@
 const inquirer = require ('inquirer');
-const db = require('./db/connect');
 const cTable = require('console.table');
 const fetch = require('node-fetch');
 const { startQuestion:sQues, deptQuestions:dQues, roleQuestions:rQues, emplQuestions:eQues } = require('./src/questions');
-const { title } = require('process');
 class Construction {
 
     initialize() {
@@ -41,9 +39,17 @@ class Construction {
                     method: 'GET'
                 })
                 .then((res) => res.json())
-                .then((data) => {console.log(' '); console.table(data.data)})
+                .then((data) => {console.log('\n\n '); console.table(data.data)})
                 .then(this.deptMenu());
                 
+            }
+            if (answers.deptList === "View Department Salary Budget") {
+                fetch(`http://localhost:3001/api/deptSalaries/${answers.viewDeptSalary.id}`, {
+                    method: 'GET'
+                })
+                .then((res) => res.json())
+                .then((data) => {console.log('\n\n '); console.table(data.data)})
+                .then(this.deptMenu());
             }
             if (answers.deptList === "Add a Department") {
                 if (!answers.addDept) {
@@ -105,7 +111,6 @@ class Construction {
                 .then((res) => res.json())
                 .then((data) => {console.table(data.data)})
                 .then(this.rolesMenu());
-                
             }
             if (answers.roleList === "Add a Role") {
                 if (!answers.addRoleTitle || !answers.addRoleSalary || !answers.addRoleDept) {
@@ -147,7 +152,7 @@ class Construction {
                     salary: answers.updateRoleSalary || answers.updateRole.salary,
                     department_id: answers.updateRoleDept || answers.updateRole.department_id
                 };
-                console.log('Role updated to the following:');
+                console.log('\n\nRole updated to the following:');
                 console.table(updateRoleObj);
                 updateMeRole(updateRoleObj);
             }
@@ -166,9 +171,25 @@ class Construction {
                     method: 'GET'
                 })
                 .then((res) => res.json())
-                .then((data) => {console.log(' '); console.table(data.data)})
+                .then((data) => {console.log('\n\n '); console.table(data.data)})
                 .then(this.employeeMenu());
                 
+            }
+            if (answers.emplList === "View Employees by Manager") {
+                fetch(`http://localhost:3001/api/manager/${answers.viewByMan.id}`, {
+                    method: 'GET'
+                })
+                .then((res) => res.json())
+                .then((data) => {console.log('\n\n '); console.table(data.data)})
+                .then(this.employeeMenu());
+            }
+            if (answers.emplList === "View Employees by Department") {
+                fetch(`http://localhost:3001/api/deptEmployees/${answers.viewByDept.id}`, {
+                    method: 'GET'
+                })
+                .then((res) => res.json())
+                .then((data) => {console.log('\n\n '); console.table(data.data)})
+                .then(this.employeeMenu());
             }
             if (answers.emplList === "Add an Employee") {
                 if (!answers.addEmplFirstName || !answers.addEmplLastName || !answers.addEmplRole || !answers.addEmplManager) {
@@ -226,7 +247,7 @@ class Construction {
                     role_id: roleID(),
                     manager_id: manID()
                 };
-                console.log('Employee updated to the following:');
+                console.log('\n\nEmployee updated to the following:');
                 console.table(updateEmplObj);
                 updateMeEmpl(updateEmplObj);
             }

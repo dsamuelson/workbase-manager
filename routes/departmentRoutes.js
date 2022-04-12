@@ -2,6 +2,28 @@ const express = require('express');
 const db = require('../db/connect');
 const router = express.Router();
 
+router.get('/deptSalaries/:id', (req, res) => {
+    const sql = `SELECT  departments.name AS Department, SUM(roles.salary) AS Department_budget
+    FROM employees employee
+    LEFT JOIN roles
+    ON employee.role_id = roles.id
+    LEFT JOIN departments
+    on roles.department_id = departments.id
+    WHERE department_id = ?`;
+    const params = [req.params.id];
+
+    db.query(sql, params, (err, rows) => {
+        if (err) {
+            res.status(500).json({ error: err.message });
+            return;
+        }
+        res.json({ 
+            message: 'success',
+            data: rows
+        });
+    });
+});
+
 router.get('/department/:id', (req, res) => {
     const sql = `SELECT * FROM departments
                 WHERE departments.id = ?`;

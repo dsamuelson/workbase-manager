@@ -2,6 +2,54 @@ const express = require('express');
 const db = require('../db/connect');
 const router = express.Router();
 
+router.get('/deptEmployees/:id', (req, res) => {
+    const sql = `SELECT employee.id, employee.first_name, employee.last_name, roles.title AS Role, departments.name AS Department, roles.salary AS Salary, CONCAT(manager.first_name, ' ', manager.
+    last_name) AS Manager_Name
+    FROM employees employee
+    LEFT JOIN roles
+    ON employee.role_id = roles.id
+    LEFT JOIN departments
+    on roles.department_id = departments.id
+    LEFT JOIN employees manager
+    ON employee.manager_id = manager.id
+    WHERE department_id = ?`;
+    const params = [req.params.id];
+
+    db.query(sql, params, (err, rows) => {
+        if (err) {
+            res.status(500).json({ error: err.message });
+            return;
+        }
+        res.json({ 
+            message: 'success',
+            data: rows
+        });
+    });
+});
+
+router.get('/manager/:id', (req, res) => {
+    const sql =  `SELECT employee.id, CONCAT(employee.first_name, ' ', employee.last_name) AS Full_Name, CONCAT(manager.first_name, ' ', manager.
+    last_name) AS Manager_Name, roles.title AS Role
+    FROM employees employee
+    LEFT JOIN employees manager
+    ON employee.manager_id = manager.id
+    LEFT JOIN roles
+    ON employee.role_id = roles.id
+    WHERE manager.id = ?`;
+    const params = [req.params.id];
+
+    db.query(sql, params, (err, rows) => {
+        if (err) {
+            res.status(500).json({ error: err.message });
+            return;
+        }
+        res.json({
+            message: 'success',
+            data: rows
+        });
+    });
+});
+
 router.get('/employee/:id', (req, res) => {
     const sql =  `SELECT employee.id, CONCAT(employee.first_name, ' ', employee.last_name) AS Full_Name, CONCAT(manager.first_name, ' ', manager.
     last_name) AS Manager_Name, roles.title AS Role

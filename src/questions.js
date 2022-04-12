@@ -16,8 +16,36 @@ const deptQuestions = [
         type: 'list',
         name: 'deptList',
         message: 'What do you need?',
-        choices: ['View All Departments', 'Add a Department', 'Update a Department', 'Delete a Department', 'Go Back'],
+        choices: ['View All Departments', 'View Department Salary Budget', 'Add a Department', 'Update a Department', 'Delete a Department', 'Go Back'],
         default: 'View All Departments'
+    },
+    {
+        type: 'rawlist',
+        name: 'viewDeptSalary',
+        choices: () => {
+            return new Promise ((resolve, reject) => {
+            let choicesArr = [];
+            let sql = `SELECT * FROM departments`;
+            db.query(sql, (err, res) => {
+                if (err) {
+                    return reject(err);
+                }   
+
+                    for (let i = 0 ; i < res.length ; i++ ) {
+                        choicesArr.push({ value: {id: res[i].id, name: res[i].name}, name:res[i].name});
+                    }
+                    return resolve(choicesArr);
+                })
+                
+            })
+        },
+        when:({ deptList }) => {
+            if (deptList === "View Department Salary Budget") {
+                return true;
+            } else {
+                return false;
+            }
+        }
     },
     {
         type: 'input',
@@ -312,6 +340,61 @@ const emplQuestions = [
         message: 'What would you like to do?',
         choices: ['View all Employees', 'View Employees by Manager', 'View Employees by Department', 'Add an Employee', 'Update an Employee', 'Delete an Employee',  'Go Back'],
         default: 'View all Employees'
+    },
+    {
+        type: 'rawlist',
+        name: 'viewByMan',
+        message: 'Which manager do you want to see the Employees for?',
+        choices: () => {
+            return new Promise ((resolve, reject) => {
+            let choicesArr = [];
+            let sql = `SELECT * FROM employees`;
+            db.query(sql, (err, res) => {
+                if (err) {
+                    return reject(err);
+                }
+                    for (let i = 0 ; i < res.length ; i++ ) {
+                        choicesArr.push({ value: {id: res[i].id, full_name: res[i].first_name + ' ' + res[i].last_name}, name:res[i].first_name + ' ' + res[i].last_name});
+                    }
+                    return resolve(choicesArr);
+                })
+            })
+        },
+        when: ({emplList}) => {
+            if (emplList === 'View Employees by Manager') {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    },
+    {
+        type: 'rawlist',
+        name: 'viewByDept',
+        message: 'Which Department do you want to see the Employees for?',
+        choices: () => {
+            return new Promise ((resolve, reject) => {
+            let choicesArr = [];
+            let sql = `SELECT * FROM departments`;
+            db.query(sql, (err, res) => {
+                if (err) {
+                    return reject(err);
+                }
+                    for (let i = 0 ; i < res.length ; i++ ) {
+                        choicesArr.push({ value: {id:res[i].id, name: res[i].name}, name:res[i].name});
+                    }
+                    return resolve(choicesArr);
+                });
+                
+            });
+        },
+        when: ({emplList}) => {
+            if (emplList === 'View Employees by Department') {
+                return true;
+            } else {
+                return false;
+            }
+        }
     },
     {
         type: 'input',
