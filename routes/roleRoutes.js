@@ -2,6 +2,7 @@ const express = require('express');
 const db = require('../db/connect');
 const router = express.Router();
 
+// Sets up the route to get a specific role based on ID
 router.get('/role/:id', (req, res) => {
     const sql = `SELECT * FROM roles
     WHERE roles.id = ?`;
@@ -19,6 +20,7 @@ router.get('/role/:id', (req, res) => {
     });
 });
 
+// Sets up the route to delete a role (deleting a role will set the employee's role value to NULL)
 router.delete('/role/:id', (req,res) => {
     const sql = `DELETE FROM roles 
     WHERE id = ?`;
@@ -41,6 +43,7 @@ router.delete('/role/:id', (req,res) => {
     });
 });
 
+// Sets up the route to update a role based on its ID
 router.put('/role/:id', (req, res) => {
     const sql = `UPDATE roles 
     SET title = ? , salary = ?, department_id = ?
@@ -63,6 +66,7 @@ router.put('/role/:id', (req, res) => {
     });
 });
 
+// Sets up the route to add a new Role
 router.post('/role', ({ body }, res) => {
     const sql = `INSERT INTO roles (title, salary, department_id)
         VALUES (?,?,?)`;
@@ -80,6 +84,7 @@ router.post('/role', ({ body }, res) => {
     });
 });
 
+// sets up route to view information on all roles
 router.get('/roles', (req, res) => {
     const sql = `SELECT roles.title, roles.id AS Role_id, departments.name AS Department, roles.salary AS Role_Salary
     FROM roles

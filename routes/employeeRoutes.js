@@ -2,6 +2,7 @@ const express = require('express');
 const db = require('../db/connect');
 const router = express.Router();
 
+// Sets up the route to get the employees information based on the department they belong to
 router.get('/deptEmployees/:id', (req, res) => {
     const sql = `SELECT employee.id, employee.first_name, employee.last_name, roles.title AS Role, departments.name AS Department, roles.salary AS Salary, CONCAT(manager.first_name, ' ', manager.
     last_name) AS Manager_Name
@@ -27,6 +28,7 @@ router.get('/deptEmployees/:id', (req, res) => {
     });
 });
 
+// sets up the route to get the employee information based on the manager they are under
 router.get('/manager/:id', (req, res) => {
     const sql =  `SELECT employee.id, CONCAT(employee.first_name, ' ', employee.last_name) AS Full_Name, CONCAT(manager.first_name, ' ', manager.
     last_name) AS Manager_Name, roles.title AS Role
@@ -50,6 +52,7 @@ router.get('/manager/:id', (req, res) => {
     });
 });
 
+// Sets up the route to return the information on a single employee based on their ID
 router.get('/employee/:id', (req, res) => {
     const sql =  `SELECT employee.id, CONCAT(employee.first_name, ' ', employee.last_name) AS Full_Name, CONCAT(manager.first_name, ' ', manager.
     last_name) AS Manager_Name, roles.title AS Role
@@ -73,6 +76,7 @@ router.get('/employee/:id', (req, res) => {
     });
 });
 
+// Sets up the route to delete an employee
 router.delete('/employee/:id', (req,res) => {
     const sql = `DELETE FROM employees 
     WHERE id = ?`;
@@ -95,6 +99,7 @@ router.delete('/employee/:id', (req,res) => {
     });
 });
 
+// sets up the route to update an employee's information
 router.put('/employee/:id', (req, res) => {
     const sql = `UPDATE employees 
     SET first_name = ?, last_name = ?, role_id = ?, manager_id = ?
@@ -117,6 +122,7 @@ router.put('/employee/:id', (req, res) => {
     });
 });
 
+// Sets up the route to add a new employee
 router.post('/employee', ({ body }, res) => {
     const sql = `INSERT INTO employees (first_name, last_name, role_id, manager_id)
         VALUES (?,?,?,?)`;
@@ -134,6 +140,7 @@ router.post('/employee', ({ body }, res) => {
     });
 });
 
+// sets up the route to get and display all of the employees in the database
 router.get('/employees', (req, res) => {
     const sql = `SELECT employee.id, employee.first_name, employee.last_name, roles.title AS Role, departments.name AS Department, roles.salary AS Salary, CONCAT(manager.first_name, ' ', manager.
     last_name) AS Manager_Name

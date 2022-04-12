@@ -2,6 +2,7 @@ const express = require('express');
 const db = require('../db/connect');
 const router = express.Router();
 
+// Sets up the route to get the total budget for a department based on the department ID
 router.get('/deptSalaries/:id', (req, res) => {
     const sql = `SELECT  departments.name AS Department, SUM(roles.salary) AS Department_budget
     FROM employees employee
@@ -24,6 +25,7 @@ router.get('/deptSalaries/:id', (req, res) => {
     });
 });
 
+// Sets up the route to get a singular department based on its ID
 router.get('/department/:id', (req, res) => {
     const sql = `SELECT * FROM departments
                 WHERE departments.id = ?`;
@@ -41,6 +43,7 @@ router.get('/department/:id', (req, res) => {
     });
 });
 
+// Sets up the route to delete a department
 router.delete('/department/:id', (req,res) => {
     const sql = `DELETE FROM departments 
     WHERE id = ?`;
@@ -63,6 +66,7 @@ router.delete('/department/:id', (req,res) => {
     });
 });
 
+// Sets up Route for updating the department
 router.put('/department/:id', (req, res) => {
     const sql = `UPDATE departments 
     SET name = ?
@@ -85,6 +89,7 @@ router.put('/department/:id', (req, res) => {
     });
 });
 
+// Sets up the route to add a department 
 router.post('/department', ({ body }, res) => {
     const sql = `INSERT INTO departments (name)
         VALUES (?)`;
@@ -102,6 +107,7 @@ router.post('/department', ({ body }, res) => {
     });
 });
 
+// Sets up route to get the department's names and id's
 router.get('/departments', (req, res) => {
     const sql = `SELECT name AS Department, id AS Department_id FROM departments`;
 

@@ -2,8 +2,10 @@ const inquirer = require ('inquirer');
 const cTable = require('console.table');
 const fetch = require('node-fetch');
 const { startQuestion:sQues, deptQuestions:dQues, roleQuestions:rQues, emplQuestions:eQues } = require('./src/questions');
-class Construction {
 
+//Sets up a class that constructs the database
+class Construction {
+    // called to start the construction of the database and control the navigation from the menus
     initialize() {
         inquirer.prompt(sQues)
         .then(answers => {
@@ -27,6 +29,7 @@ class Construction {
         });
     };
 
+    // controls database creation for the department table based on fetch calls and responses
     deptMenu() {
         inquirer.prompt(dQues)
         .then(answers => {
@@ -97,6 +100,7 @@ class Construction {
         })
     };
 
+    // controls database creation for the roles table based on fetch calls and responses
     rolesMenu() {
         inquirer.prompt(rQues)
         .then(answers => {
@@ -159,6 +163,7 @@ class Construction {
         })
     };
 
+    // controls database creation for the employees table based on fetch calls and responses
     employeeMenu() {
         inquirer.prompt(eQues)
         .then((answers) => {

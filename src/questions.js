@@ -1,6 +1,7 @@
 const db = require('../db/connect');
 const inquirer = require ('inquirer');
 
+// Sets up the main menu in inquirer
 const startQuestion = [
     {
     type: 'rawlist',
@@ -11,6 +12,7 @@ const startQuestion = [
     }
 ];
 
+// sets up the department menu in inquirer and navigation
 const deptQuestions = [
     {
         type: 'list',
@@ -135,6 +137,7 @@ const deptQuestions = [
     }
 ];
 
+// sets up the role menu and navigation in inquirer
 const roleQuestions = [
     {
         type: 'list',
@@ -333,6 +336,7 @@ const roleQuestions = [
     }
 ];
 
+// sets up the employee menu and navigation in inquirer
 const emplQuestions = [
     {
         type: 'list',
@@ -642,6 +646,7 @@ const emplQuestions = [
     }
 ];
 
+// exports the questions so that they can be used in index.js to build the database
 module.exports = {
     startQuestion,
     deptQuestions,
