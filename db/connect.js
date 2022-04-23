@@ -4,7 +4,7 @@ const db = mysql.createConnection(
     {
         host: 'localhost',
         user: 'root',
-        password: ' ',
+        password: 'Int3rn3t!',
         database: 'workbase'
     },
     console.log('connected to workbase')
