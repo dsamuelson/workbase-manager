@@ -5,6 +5,7 @@ const { startQuestion:sQues, deptQuestions:dQues, roleQuestions:rQues, emplQuest
 class Construction {
 
     initialize() {
+        console.clear();
         inquirer.prompt(sQues)
         .then(answers => {
             console.log(answers.startup);
@@ -39,7 +40,7 @@ class Construction {
                     method: 'GET'
                 })
                 .then((res) => res.json())
-                .then((data) => {console.log('\n\n '); console.table(data.data)})
+                .then((data) => {console.clear(); console.log('\n\n '); console.table(data.data)})
                 .then(this.deptMenu());
                 
             }
@@ -48,7 +49,7 @@ class Construction {
                     method: 'GET'
                 })
                 .then((res) => res.json())
-                .then((data) => {console.log('\n\n '); console.table(data.data)})
+                .then((data) => {console.clear(); console.log('\n\n '); console.table(data.data)})
                 .then(this.deptMenu());
             }
             if (answers.deptList === "Add a Department") {
@@ -109,7 +110,7 @@ class Construction {
                     method: 'GET'
                 })
                 .then((res) => res.json())
-                .then((data) => {console.table(data.data)})
+                .then((data) => {console.clear(); console.log('\n\n'); console.table(data.data)})
                 .then(this.rolesMenu());
             }
             if (answers.roleList === "Add a Role") {
@@ -152,6 +153,7 @@ class Construction {
                     salary: answers.updateRoleSalary || answers.updateRole.salary,
                     department_id: answers.updateRoleDept || answers.updateRole.department_id
                 };
+                console.clear();
                 console.log('\n\nRole updated to the following:');
                 console.table(updateRoleObj);
                 updateMeRole(updateRoleObj);
@@ -171,7 +173,7 @@ class Construction {
                     method: 'GET'
                 })
                 .then((res) => res.json())
-                .then((data) => {console.log('\n\n '); console.table(data.data)})
+                .then((data) => {console.clear(); console.log('\n\n '); console.table(data.data)})
                 .then(this.employeeMenu());
                 
             }
@@ -180,7 +182,7 @@ class Construction {
                     method: 'GET'
                 })
                 .then((res) => res.json())
-                .then((data) => {console.log('\n\n '); console.table(data.data)})
+                .then((data) => {console.clear(); console.log('\n\n '); console.table(data.data)})
                 .then(this.employeeMenu());
             }
             if (answers.emplList === "View Employees by Department") {
@@ -188,7 +190,7 @@ class Construction {
                     method: 'GET'
                 })
                 .then((res) => res.json())
-                .then((data) => {console.log('\n\n '); console.table(data.data)})
+                .then((data) => {console.clear(); console.log('\n\n '); console.table(data.data)})
                 .then(this.employeeMenu());
             }
             if (answers.emplList === "Add an Employee") {
@@ -247,6 +249,7 @@ class Construction {
                     role_id: roleID(),
                     manager_id: manID()
                 };
+                console.clear();
                 console.log('\n\nEmployee updated to the following:');
                 console.table(updateEmplObj);
                 updateMeEmpl(updateEmplObj);
