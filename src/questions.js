@@ -454,7 +454,7 @@ const emplQuestions = [
         message: "Who is this Employee's Manager?",
         choices: () => {
             return new Promise ((resolve, reject) => {
-            let choicesArr = [];
+            let choicesArr = ['NULL'];
             let sql = `SELECT * FROM employees`;
             db.query(sql, (err, res) => {
                 if (err) {
